@@ -1,0 +1,40 @@
+Zsh is in the packages.txt
+
+Oh my zsh plugin manager
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+* Remove themes from the resulting .zshrc
+as it will interfere with p10k theme.
+
+* Plugins
+#add (plugin1 plugin 2 ) in .zshrc
+Completions need to be cloned first
+git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
+then add  zsh-autosuggestions and ...
+
+plugins=(git zsh-autosuggestions web-search copyfile history)
+#web-search allows you to google inside the terminal
+#copyfile command can copy contents of a file in the clipboard
+#History
+h - prints your history
+hs [searchterm] - searches your history with grep
+hsi [serachterm] - same as above but case insensitive.
+
+
+#p10k manual install
+git clone --depth=1 https://github.com/romkatv/powerlevel10k.git ~/powerlevel10k
+echo 'source ~/powerlevel10k/powerlevel10k.zsh-theme' >>~/.zshrc
+
+p10k configure
+to configure
+
+
+#### KITTY
+
+git clone --depth 1 https://github.com/dexpota/kitty-themes.git ~/.config/kitty/kitty-themes
+cd ~/.config/kitty
+ln -s ./kitty-themes/themes/Dumbledore.conf ~/.config/kitty/theme.conf
+include ./theme.conf
+
+#gonna have to delete the folder and link whenver u wanna change theme
+

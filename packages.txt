@@ -1,0 +1,13 @@
+zsh
+git
+stow
+vim
+neovim
+tree
+tmux
+docker-desktop
+graphviz
+ffmpeg
+ripgrep
+fd
+rofi

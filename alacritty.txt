@@ -1,0 +1,116 @@
+PPA installation:
+sudo add-apt-repository ppa:aslatter/ppa -y
+sudo apt install alacritty
+PPA uninstallation:
+sudo apt autoremove --purge alacritty
+
+#config
+
+mkdir $HOME/.config/alacritty
+cd $HOME/.config/alacritty
+wget https://github.com/alacritty/alacritty/releases/download/v0.11.0-rc3/alacritty.yml
+
+#get themes
+#sudo npm install npm -g
+sudo npm cache clean -f
+sudo npm install -g n
+sudo n stable
+
+sudo npm i -g alacritty-themes
+alacritty-themes #select a theme
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#Compilation instructions for Alacritty.
+
+#dependencies
+apt install cmake pkg-config libfreetype6-dev libfontconfig1-dev libxcb-xfixes0-dev libxkbcommon-dev python3
+
+#Prerequisites
+git clone https://github.com/alacritty/alacritty.git
+cd alacritty
+
+#rustup follow instructinos then update
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source "$HOME/.cargo/env"
+
+rustup override set stable
+rustup update stable
+
+cargo build --release
+
+## Post build
+# make sure it works correctly 
+infocmp alacritty
+# no errors means terminfo is installed
+#if not installed
+sudo tic -xe alacritty,alacritty-direct extra/alacritty.info
+
+#Make Desktop entry
+sudo cp target/release/alacritty /usr/local/bin # or anywhere else in $PATH
+sudo cp extra/logo/alacritty-term.svg /usr/share/pixmaps/Alacritty.svg
+sudo desktop-file-install extra/linux/Alacritty.desktop
+sudo update-desktop-database
+
+
+#Replace Logo to prerenderd pngs, simplified svgs in the extra/logo/compat dir.
+
+#man pages
+sudo mkdir -p /usr/local/share/man/man1
+sudo mkdir -p /usr/local/share/man/man5
+scdoc < extra/man/alacritty.1.scd | gzip -c | sudo tee /usr/local/share/man/man1/alacritty.1.gz > /dev/null
+scdoc < extra/man/alacritty-msg.1.scd | gzip -c | sudo tee /usr/local/share/man/man1/alacritty-msg.1.gz > /dev/null
+scdoc < extra/man/alacritty.5.scd | gzip -c | sudo tee /usr/local/share/man/man5/alacritty.5.gz > /dev/null
+scdoc < extra/man/alacritty-bindings.5.scd | gzip -c | sudo tee /usr/local/share/man/man5/alacritty-bindings.5.gz > /dev/null
+
+##Shell completions for zsh
+
+mkdir -p ${ZDOTDIR:-~}/.zsh_functions
+echo 'fpath+=${ZDOTDIR:-~}/.zsh_functions' >> ${ZDOTDIR:-~}/.zshrc
+
+cp extra/completions/_alacritty ${ZDOTDIR:-~}/.zsh_functions/_alacritty
+
+#Set terminal as alacritty
+
+sudo update-alternatives --config x-terminal-emulator
+
+
+
+
